@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Imagenes from "./componentes/Imagenes";
-//import "./App.css";
+import image from "./logo.webp"
 
 function App() {
   const [allPokemons, setAllPokemons] = useState([]);
   const [loadMore, setLoadMore] = useState(
-    "https://pokeapi.co/api/v2/pokemon?limit=20"
+    "https://pokeapi.co/api/v2/pokemon?limit=50"
   );
 
   const getAllPokemons = async () => {
@@ -24,8 +24,9 @@ function App() {
         setAllPokemons((currentList) => [...currentList, data]);
       });
     }
+
     createPokemonObject(data.results);
-    await console.log(allPokemons);
+    console.log(allPokemons);
   };
 
   useEffect(() => {
@@ -33,7 +34,8 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container">
+    <div id="2" className="app-container">
+      <img src={image} />
       <div className="pokemon-container">
         <div className="all-container">
           {allPokemons.map((pokemon, index) => (
@@ -43,12 +45,12 @@ function App() {
               image={pokemon.sprites.other.dream_world.front_default}
               type={pokemon.types[0].type.name}
               key={index}
+              hab={pokemon.abilities[0].ability.name}
+              peso={pokemon.weight}
+              altura={pokemon.height}
             />
           ))}
         </div>
-        <button className="load-more" type="button">
-          Load more
-        </button>
       </div>
     </div>
   );
